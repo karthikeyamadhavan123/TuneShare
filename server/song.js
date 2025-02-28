@@ -1,33 +1,35 @@
-const fs = require('fs');
-const path = require('path');
-const cloudinary = require('cloudinary').v2;
-const mongoose = require('mongoose');
-const Song = require('../server/models/songSchema'); // Import Song model
+const fs = require("fs");
+const path = require("path");
+const cloudinary = require("cloudinary").v2;
+const mongoose = require("mongoose");
+require("dotenv").config()
+const Song = require("../server/models/songSchema"); // Import Song model
 
 // Cloudinary credentials setup
 cloudinary.config({
-  cloud_name: 'daagqem3x',  // Replace with your Cloudinary cloud name
-  api_key: '842183842348571',       // Replace with your API key
-  api_secret: 'jbn8b1qNkidaFvwofyUCM_webWk'  // Replace with your API secret
+  cloud_name: process.env.CLOUD_NAME, // Replace with your Cloudinary cloud name
+  api_key: process.env.CLOUD_API_KEY, // Replace with your API key
+  api_secret: process.env.CLOUD_SECRET, // Replace with your API secret
 });
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/Tuneshare')
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Failed to connect to MongoDB:', err));
+mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB:", err));
 
 // Read data from JSON file
-const data = JSON.parse(fs.readFileSync('data.json', 'utf-8'));
+const data = JSON.parse(fs.readFileSync("data.json", "utf-8"));
 
 // Function to upload image to Cloudinary and return the URL
 const uploadImageToCloudinary = async (imageUrl) => {
   try {
     const result = await cloudinary.uploader.upload(imageUrl, {
-      folder: 'songs_images'
+      folder: "songs_images",
     });
     return result.secure_url;
   } catch (error) {
-    console.error('Error uploading image:', error);
+    console.error("Error uploading image:", error);
     return null;
   }
 };
@@ -47,8 +49,8 @@ const processAndStoreData = async () => {
       console.error(`Error saving song: ${song.songName}`, error);
     }
   }
-  
-  console.log('All data processed.');
+
+  console.log("All data processed.");
   mongoose.disconnect();
 };
 

@@ -16,12 +16,12 @@ const storage = multer.diskStorage({
       let folder = 'uploads/'; // Default folder
 
       // Check if the upload is for shop images
-      if (file.fieldname === 'shop_image') {
-        folder = 'uploads/shop_images/';
+      if (file.fieldname === 'song_image') {
+        folder = 'uploads/song_images/';
       } 
-     else if(file.fieldname === 'product_image'){
-      folder = 'uploads/product_images/';
-     }
+    //  else if(file.fieldname === 'product_image'){
+    //   folder = 'uploads/product_images/';
+    //  }
 
       ensureDirectoryExistence(folder); // Ensure the folder exists
       cb(null, folder); // Set the appropriate folder

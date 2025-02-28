@@ -1,62 +1,83 @@
 const nodemailer = require("nodemailer");
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../.env') });
-
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "../.env") });
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com", // Gmail SMTP server
-    port: 587, // Port for TLS/STARTTLS
-    secure: false, // false for TLS/STARTTLS, true for SSL (port 465)
-    auth: {
-        user: process.env.NODEMAILER_EMAIL, // your email from environment variables
-        pass: process.env.NODEMAILER_PASS, // your app password from environment variables
-    },
+  host: "smtp.gmail.com", // Gmail SMTP server
+  port: 587, // Port for TLS/STARTTLS
+  secure: false, // false for TLS/STARTTLS, true for SSL (port 465)
+  auth: {
+    user: process.env.NODEMAILER_EMAIL, // your email from environment variables
+    pass: process.env.NODEMAILER_PASS, // your app password from environment variables
+  },
 });
+
 async function welcomeEmail(email) {
   try {
-      const info = await transporter.sendMail({
-          from: process.env.NODEMAILER_EMAIL, // sender address
-          to: email, // receiver address
-          subject: "Welcome to TuneShare!",
-          text: `Welcome to TuneShare! We're excited to have you join our creative community.`, // plain text body
-          html: `<!DOCTYPE html>
+    const info = await transporter.sendMail({
+      from: process.env.NODEMAILER_EMAIL, // sender address
+      to: email, // receiver address
+      subject: "Welcome to TuneShare!",
+      text: `Welcome to TuneShare! Connect, Collaborate, and Explore with the most talented creators in the music world.`, // plain text body
+      html: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to TuneShare!</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #6a5acd, #483d8b); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Welcome to TuneShare!</h1>
+  <div style="background: linear-gradient(to right, #1e3c72, #2a5298); padding: 40px 20px; text-align: center; border-radius: 10px 10px 0 0;">
+    <h1 style="color: white; margin: 0; font-size: 2.5em;">Welcome to TuneShare!</h1>
+    <p style="color: #e0e0e0; font-size: 1.2em; margin-top: 10px;">Connect. Collaborate. Explore.</p>
   </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+  <div style="background-color: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
     <p>Hello,</p>
-    <p>Thank you for signing up! We're thrilled to have you join our growing network of talented creators.</p>
-    <p>TuneShare is the perfect place to showcase your musical and artistic skills. To get started, visit our platform and upload your first audio or video clip:</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <a href="${process.env.CLIENT_URL}" style="background-color: #6a5acd; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Visit TuneShare</a>
+    <p>Thank you for joining <strong>TuneShare</strong>, the ultimate platform for music talent! We're excited to have you as part of our creative community.</p>
+    
+    <div style="margin: 30px 0;">
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <i class="fas fa-users" style="font-size: 24px; color: #1e3c72; margin-right: 10px;"></i>
+        <span><strong>Connect</strong> with talented musicians and creators worldwide.</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <i class="fas fa-handshake" style="font-size: 24px; color: #1e3c72; margin-right: 10px;"></i>
+        <span><strong>Collaborate</strong> on exciting projects and bring your ideas to life.</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <i class="fas fa-compass" style="font-size: 24px; color: #1e3c72; margin-right: 10px;"></i>
+        <span><strong>Explore</strong> new opportunities and grow your musical journey.</span>
+      </div>
     </div>
-    <p>If you have any questions or need assistance, feel free to reach out to our support team.</p>
-    <p>Best regards,<br>Your TuneShare Team</p>
+
+    <p>Ready to get started? Click the button below to visit TuneShare and upload your first audio or video clip:</p>
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="${process.env.CLIENT_URL}" style="background-color: #1e3c72; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1em;">
+        <i class="fas fa-arrow-right" style="margin-right: 10px;"></i>Visit TuneShare
+      </a>
+    </div>
+
+    <p>If you have any questions or need assistance, feel free to reach out to our support team at <a href="mailto:support@tuneshare.com" style="color: #1e3c72; text-decoration: none;">support@tuneshare.com</a>.</p>
+    <p>Best regards,<br><strong>The TuneShare Team</strong></p>
   </div>
   <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated message, please do not reply to this email.</p>
   </div>
 </body>
-</html>`
-      });
-      return info;
-
+</html>`,
+    });
+    return info;
   } catch (error) {
-      console.error("Error sending email: ", error);
+    console.error("Error sending email: ", error);
   }
 }
+
 async function sendVerificationEmail(email, token) {
   try {
     const info = await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: 'Reset Your Tune Share Password',
+      subject: "Reset Your Tune Share Password",
       text: `You requested a password reset for your Tune Share account. Use this token to reset your password: ${token}`,
       html: `<!DOCTYPE html>
       <html lang="en">
@@ -84,10 +105,9 @@ async function sendVerificationEmail(email, token) {
         </div>
       </body>
       </html>
-      `
+      `,
     });
     return info;
-
   } catch (error) {
     console.error("Error sending email: ", error);
   }
@@ -98,7 +118,7 @@ async function sendResetEmailSuccessful(email) {
     const info = await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: 'Your Tune Share Password Has Been Reset',
+      subject: "Your Tune Share Password Has Been Reset",
       text: `Your Tune Share password has been successfully reset. You can now log in with your new password.`,
       html: `
 <!DOCTYPE html>
@@ -135,23 +155,21 @@ async function sendResetEmailSuccessful(email) {
   </div>
 </body>
 </html>
-`
+`,
     });
 
     console.log("Email sent successfully:");
-
   } catch (error) {
     console.error("Error sending email:", error);
   }
 }
-
 
 async function sendShopCreationEmail(email, shopName) {
   try {
     const info = await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: 'Congratulations! Your Shop Has Been Created',
+      subject: "Congratulations! Your Shop Has Been Created",
       text: `Congratulations! Your shop "${shopName}" has been successfully created.`,
       html: `
 <!DOCTYPE html>
@@ -189,11 +207,10 @@ async function sendShopCreationEmail(email, shopName) {
   </div>
 </body>
 </html>
-`
+`,
     });
 
     console.log("Shop creation email sent successfully:");
-
   } catch (error) {
     console.error("Error sending shop creation email:", error);
   }
@@ -203,7 +220,7 @@ async function sendProductCreationEmail(email, productName) {
     const info = await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: 'New Product Added Successfully',
+      subject: "New Product Added Successfully",
       text: `Your new product "${productName}" has been successfully added to your shop.`,
       html: `
 <!DOCTYPE html>
@@ -241,11 +258,10 @@ async function sendProductCreationEmail(email, productName) {
   </div>
 </body>
 </html>
-`
+`,
     });
 
     console.log("Product creation email sent successfully:");
-
   } catch (error) {
     console.error("Error sending product creation email:", error);
   }
@@ -256,7 +272,7 @@ async function sendAccountDeletionEmail(email, username) {
     const info = await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: 'Your Account Has Been Deleted',
+      subject: "Your Account Has Been Deleted",
       text: `Dear ${username}, your account has been successfully deleted. We're sorry to see you go.`,
       html: `
 <!DOCTYPE html>
@@ -293,15 +309,21 @@ async function sendAccountDeletionEmail(email, username) {
   </div>
 </body>
 </html>
-`
+`,
     });
 
     console.log("Account deletion email sent successfully:");
-
   } catch (error) {
     console.error("Error sending account deletion email:", error);
   }
 }
 
 // module.exports = { sendVerificationEmail, sendResetEmailSuccessful };
-module.exports = { welcomeEmail ,sendVerificationEmail,sendResetEmailSuccessful,sendShopCreationEmail,sendProductCreationEmail,sendAccountDeletionEmail}
+module.exports = {
+  welcomeEmail,
+  sendVerificationEmail,
+  sendResetEmailSuccessful,
+  sendShopCreationEmail,
+  sendProductCreationEmail,
+  sendAccountDeletionEmail,
+};
