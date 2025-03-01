@@ -1,5 +1,7 @@
 
 # env files (can opt-in for committing if needed)
 .env*
+
+# Ignore specific data files
 data.json
 song.js
