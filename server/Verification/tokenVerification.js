@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser');
 
 function tokenVerification(req, res, next) {
     try {
-        const cookie_token = req.cookies?.['register'] || req.cookies?.['login'];
+        const cookie_token = req.cookies?.['login'];
         // console.log(' Cookies:', req.cookies);  // Log cookies for debugging
 
         if (!cookie_token) {

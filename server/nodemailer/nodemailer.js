@@ -77,193 +77,92 @@ async function sendVerificationEmail(email, token) {
     const info = await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: "Reset Your Tune Share Password",
-      text: `You requested a password reset for your Tune Share account. Use this token to reset your password: ${token}`,
+      subject: "Reset Your TuneShare Password",
+      text: `You requested a password reset for your TuneShare account. Use this token to reset your password: ${token}`,
       html: `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Reset Your Tune Share Password</title>
-      </head>
-      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(to right, #6366F1, #4F46E5); padding: 20px; text-align: center;">
-          <h1 style="color: white; margin: 0;">Reset Your Tune Share Password</h1>
-        </div>
-        <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-          <p>Hello music lover,</p>
-          <p>We received a request to reset your Tune Share password. If you didn't make this request, you can safely ignore this email.</p>
-          <p>To reset your password and get back to sharing your favorite tunes, click the button below:</p>
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${process.env.CLIENT_URL}/api/reset-password/${token}" style="background-color: #6366F1; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Reset Password</a>
-          </div>
-          <p>This link will expire in 1 hour for security reasons.</p>
-          <p>Keep the music playing!<br>The Tune Share Team</p>
-        </div>
-        <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
-          <p>This is an automated message, please do not reply to this email.</p>
-        </div>
-      </body>
-      </html>
-      `,
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Your TuneShare Password</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: linear-gradient(to right, #1e3c72, #2a5298); padding: 40px 20px; text-align: center; border-radius: 10px 10px 0 0;">
+    <h1 style="color: white; margin: 0; font-size: 2.5em;">Reset Your TuneShare Password</h1>
+    <p style="color: #e0e0e0; font-size: 1.2em; margin-top: 10px;">Connect. Collaborate. Explore.</p>
+  </div>
+  <div style="background-color: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <p>Hello music lover,</p>
+    <p>We received a request to reset your TuneShare password. If you didn't make this request, you can safely ignore this email.</p>
+    <p>To reset your password and get back to sharing your favorite tunes, click the button below:</p>
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="${process.env.CLIENT_URL}/api/reset-password/${token}" style="background-color: #1e3c72; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1em;">
+        <i class="fas fa-key" style="margin-right: 10px;"></i>Reset Password
+      </a>
+    </div>
+    <p>This link will expire in <strong>1 hour</strong> for security reasons.</p>
+    <p>Keep the music playing!<br>The TuneShare Team</p>
+  </div>
+  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
+    <p>This is an automated message, please do not reply to this email.</p>
+  </div>
+</body>
+</html>`,
     });
     return info;
   } catch (error) {
     console.error("Error sending email: ", error);
   }
 }
-
 async function sendResetEmailSuccessful(email) {
   try {
     const info = await transporter.sendMail({
       from: process.env.NODEMAILER_EMAIL,
       to: email,
-      subject: "Your Tune Share Password Has Been Reset",
-      text: `Your Tune Share password has been successfully reset. You can now log in with your new password.`,
-      html: `
-<!DOCTYPE html>
+      subject: "Your TuneShare Password Has Been Reset",
+      text: `Your TuneShare password has been successfully reset. You can now log in with your new password.`,
+      html: `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Password Reset Successful</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #6366F1, #4F46E5); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Password Reset Complete!</h1>
+  <div style="background: linear-gradient(to right, #1e3c72, #2a5298); padding: 40px 20px; text-align: center; border-radius: 10px 10px 0 0;">
+    <h1 style="color: white; margin: 0; font-size: 2.5em;">Password Reset Complete!</h1>
+    <p style="color: #e0e0e0; font-size: 1.2em; margin-top: 10px;">Connect. Collaborate. Explore.</p>
   </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello Tune Share member,</p>
+  <div style="background-color: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <p>Hello TuneShare member,</p>
     <p>Great news! Your password has been successfully reset.</p>
     <div style="text-align: center; margin: 30px 0;">
-      <div style="background-color: #6366F1; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; display: inline-block; font-size: 30px;">
-        ✓
+      <div style="background-color: #1e3c72; color: white; width: 60px; height: 60px; line-height: 60px; border-radius: 50%; display: inline-block; font-size: 30px;">
+        <i class="fas fa-check"></i>
       </div>
     </div>
-    <p>If you didn't request this password reset, please contact our support team immediately at support@tuneshare.com</p>
+    <p>If you didn't request this password reset, please contact our support team immediately at <a href="mailto:support@tuneshare.com" style="color: #1e3c72; text-decoration: none;">support@tuneshare.com</a>.</p>
     <p>To keep your music collection secure, we recommend:</p>
     <ul style="list-style-type: none; padding-left: 0;">
-      <li style="margin-bottom: 10px;">🎵 Using a strong, unique password</li>
-      <li style="margin-bottom: 10px;">🎸 Enabling two-factor authentication in your account settings</li>
-      <li style="margin-bottom: 10px;">🎼 Never sharing your password with others</li>
+      <li style="margin-bottom: 10px;"><i class="fas fa-music" style="color: #1e3c72; margin-right: 10px;"></i>Using a strong, unique password</li>
+      <li style="margin-bottom: 10px;"><i class="fas fa-shield-alt" style="color: #1e3c72; margin-right: 10px;"></i>Enabling two-factor authentication in your account settings</li>
+      <li style="margin-bottom: 10px;"><i class="fas fa-lock" style="color: #1e3c72; margin-right: 10px;"></i>Never sharing your password with others</li>
     </ul>
     <p>You're all set to get back to discovering and sharing amazing music!</p>
-    <p>Rock on,<br>The Tune Share Team</p>
+    <p>Rock on,<br>The TuneShare Team</p>
   </div>
   <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
     <p>This is an automated message, please do not reply to this email.</p>
   </div>
 </body>
-</html>
-`,
+</html>`,
     });
 
     console.log("Email sent successfully:");
   } catch (error) {
     console.error("Error sending email:", error);
-  }
-}
-
-async function sendShopCreationEmail(email, shopName) {
-  try {
-    const info = await transporter.sendMail({
-      from: process.env.NODEMAILER_EMAIL,
-      to: email,
-      subject: "Congratulations! Your Shop Has Been Created",
-      text: `Congratulations! Your shop "${shopName}" has been successfully created.`,
-      html: `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop Creation Successful</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #4CAF50, #45a049); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Shop Creation Successful</h1>
-  </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello,</p>
-    <p>We're excited to inform you that your shop "${shopName}" has been successfully created!</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <div style="background-color: #4CAF50; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; display: inline-block; font-size: 30px;">
-        🏪
-      </div>
-    </div>
-    <p>Here are some next steps to get you started:</p>
-    <ul>
-      <li>Customize your shop's appearance</li>
-      <li>Add products to your inventory</li>
-      <li>Set up your payment methods</li>
-      <li>Share your shop link on social media</li>
-    </ul>
-    <p>If you need any assistance, don't hesitate to reach out to our support team.</p>
-    <p>Best of luck with your new shop!</p>
-    <p>Best regards,<br>Your ChaiCro  Team</p>
-  </div>
-  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
-    <p>This is an automated message, please do not reply to this email.</p>
-  </div>
-</body>
-</html>
-`,
-    });
-
-    console.log("Shop creation email sent successfully:");
-  } catch (error) {
-    console.error("Error sending shop creation email:", error);
-  }
-}
-async function sendProductCreationEmail(email, productName) {
-  try {
-    const info = await transporter.sendMail({
-      from: process.env.NODEMAILER_EMAIL,
-      to: email,
-      subject: "New Product Added Successfully",
-      text: `Your new product "${productName}" has been successfully added to your shop.`,
-      html: `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Added Successfully</title>
-</head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(to right, #3498db, #2980b9); padding: 20px; text-align: center;">
-    <h1 style="color: white; margin: 0;">Product Added Successfully</h1>
-  </div>
-  <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 5px 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-    <p>Hello,</p>
-    <p>Great news! Your new product "${productName}" has been successfully added to your shop.</p>
-    <div style="text-align: center; margin: 30px 0;">
-      <div style="background-color: #3498db; color: white; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; display: inline-block; font-size: 30px;">
-        📦
-      </div>
-    </div>
-    <p>Here are some things you might want to do next:</p>
-    <ul>
-      <li>Double-check the product details and pricing</li>
-      <li>Add more high-quality images if needed</li>
-      <li>Create a special promotion for your new product</li>
-      <li>Share the product on your social media channels</li>
-    </ul>
-    <p>Remember, you can always edit your product details from your shop dashboard.</p>
-    <p>Happy selling!</p>
-    <p>Best regards,<br>Your E-ChaiCro  Team</p>
-  </div>
-  <div style="text-align: center; margin-top: 20px; color: #888; font-size: 0.8em;">
-    <p>This is an automated message, please do not reply to this email.</p>
-  </div>
-</body>
-</html>
-`,
-    });
-
-    console.log("Product creation email sent successfully:");
-  } catch (error) {
-    console.error("Error sending product creation email:", error);
   }
 }
 
@@ -323,7 +222,5 @@ module.exports = {
   welcomeEmail,
   sendVerificationEmail,
   sendResetEmailSuccessful,
-  sendShopCreationEmail,
-  sendProductCreationEmail,
   sendAccountDeletionEmail,
 };

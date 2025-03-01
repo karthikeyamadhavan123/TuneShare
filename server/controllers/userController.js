@@ -14,8 +14,8 @@ const {
 const Register = async (req, res) => {
   try {
     const saltRounds = 10;
-    const { username, email, password } = req.body;
-    if (!username || !email || !password) {
+    const { firstName, email, password,lastName='',gender,age,country } = req.body;
+    if (!firstName || !email || !password || !gender || !age || !country) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -30,9 +30,13 @@ const Register = async (req, res) => {
       imageUrl = result.secure_url;
     }
     const newUser = new User({
-      username,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
+      gender:gender,
+      age:age,
+      country:country,
       image: imageUrl,
       verificationToken,
       verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // Token expires in 24 hours
@@ -45,9 +49,6 @@ const Register = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "User registered successfully",
-      userId,
-      username,
-      user_image,
     });
   } catch (error) {
     console.error("Error during user registration:", error);
@@ -57,9 +58,6 @@ const Register = async (req, res) => {
 const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    // Ensure a file is uploaded
-    // Validation checks
-
     if (!email) {
       return res.status(400).json({ message: "Email is required." });
     }
@@ -79,18 +77,16 @@ const Login = async (req, res) => {
 
     const userId = user._id;
     const token = jwt.createToken({ userId });
-    const username = user.username;
+    const username = user.firstName;
     const user_image = user.image;
-    // const usertype = user.userType
     res.cookie("login", token, {
       maxAge: 1000 * 60 * 60 * 2,
-      httpOnly: true, // The cookie is not accessible by JavaScript
-      // signed: true,
+      httpOnly: true,
       path: "/",
     });
     // Send response with the new user data and token
     return res
-      .status(201)
+      .status(200)
       .json({ username, userId, user_image, message: "Login successful" });
   } catch (error) {
     console.log(error); // Log the error for debugging
@@ -100,13 +96,9 @@ const Login = async (req, res) => {
 
 const Logout = async (req, res) => {
   try {
-    if (req.cookies["register"]) {
-      res.clearCookie("register");
-    }
     if (req.cookies["login"]) {
       res.clearCookie("login");
     }
-
     return res
       .status(200)
       .json({ success: true, message: "Logout Successful" });

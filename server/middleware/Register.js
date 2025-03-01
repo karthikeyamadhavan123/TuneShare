@@ -7,8 +7,8 @@ const existingUser=async(req,res,next)=>{
         return res.status(400).json({ message: "Email is required." });
     }
     
-    const user_existing=await User.findOne({email:email});
-    if(user_existing){
+    const existingUser=await User.findOne({email:email});
+    if(existingUser){
         res.status(400).json({message:'User already exists, please log in'});
 
     }
