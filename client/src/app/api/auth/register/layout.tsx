@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import "../globals.css";
+import "../../../globals.css";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -8,8 +8,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "TuneShare| Where Music Unites",
-  description: "TuneShare is a Next.js-powered platform designed for music enthusiasts to share their favorite tunes, discover new tracks, and connect with a vibrant community.",
+  title: "Register to TuneShare",
+  description: "Register | TuneShare is a platform designed for music enthusiasts to share their favorite tunes, discover new tracks, and connect with a vibrant community.",
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} antialiased overflow-x-hidden`}
+        className={`${roboto.className} antialiased`}
       >
         {children}
       </body>

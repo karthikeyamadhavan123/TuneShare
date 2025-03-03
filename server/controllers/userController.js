@@ -15,7 +15,8 @@ const Register = async (req, res) => {
   try {
     const saltRounds = 10;
     const { firstName, email, password,lastName='',gender,age,country } = req.body;
-    if (!firstName || !email || !password || !gender || !age || !country) {
+    let {preferences}=req.body
+    if (!firstName || !email || !password || !gender || !age || !country || !preferences) {
       return res.status(400).json({ message: "All fields are required." });
     }
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -29,6 +30,8 @@ const Register = async (req, res) => {
       });
       imageUrl = result.secure_url;
     }
+     preferences = preferences.split(",").map((preference)=>preference.trim())    
+    
     const newUser = new User({
       firstName,
       lastName,
@@ -38,13 +41,11 @@ const Register = async (req, res) => {
       age:age,
       country:country,
       image: imageUrl,
+      preferences:preferences,
       verificationToken,
       verificationTokenExpiresAt: Date.now() + 24 * 60 * 60 * 1000, // Token expires in 24 hours
     });
-
     await newUser.save();
-    const userId = newUser._id;
-    const user_image = newUser.image;
     await welcomeEmail(newUser.email);
     return res.status(201).json({
       success: true,

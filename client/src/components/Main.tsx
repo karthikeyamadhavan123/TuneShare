@@ -6,7 +6,8 @@ import Link from 'next/link';
 const text="Welcome to TuneShare!"
 const Main = () => {
     return (
-        <div className='relative min-h-screen min-w-screen overflow-hidden'>
+        <>
+        <div className='relative min-h-screen min-w-screen overflow-x-hidden'>
             {/* Background Video */}
             <video
                 src="/video1.mp4"
@@ -55,6 +56,8 @@ const Main = () => {
                 </div>
             </div>
         </div>
+        </>
+
     );
 }
 

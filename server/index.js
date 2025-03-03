@@ -4,9 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const port = process.env.PORT;
 const userRoutes = require('./routes/userRouter.js')
-const songRoutes = require('./routes/songRouter.js')
 const cookieParser = require('cookie-parser');
-
 main().catch(err => console.log(err));
 const cors = require('cors')
 async function main() {
@@ -14,9 +12,6 @@ async function main() {
     console.log('Database Connected');
 
 }
-
-//MIDDLEWARES
-
 
 // Middleware to parse JSON and URL-encoded bodies
 app.use(express.json());
@@ -28,10 +23,7 @@ app.use(cookieParser());
 
 // Import and use your routes
 
-app.use('/api', userRoutes);
-app.use('/', songRoutes)
-
-
+app.use('/api/auth', userRoutes);
 
 app.listen(port, () => {
     console.log(`Server Running on ${port}`);

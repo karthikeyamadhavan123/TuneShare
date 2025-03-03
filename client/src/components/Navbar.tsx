@@ -11,7 +11,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <nav className="flex items-center justify-between p-6">
+        <nav className="flex items-center justify-between p-6 overflow-x-hidden">
             {/* Logo */}
             <div className="flex-row flex">
                 <Image width={150} height={50} alt="Logo" src="/logo.png" />
@@ -55,7 +55,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Auth Buttons */}
-            <div className="flex flex-row w-auto space-x-5 h-15 items-center justify-center xs:hidden sm:hidden md:flex lg:flex xl:flex">
+            <div className="flex flex-row w-auto space-x-5 h-15 items-center justify-center xs:hidden sm:hidden md:flex lg:flex xl:flex mr-5">
                 <Link
                     href='/api/auth/login'
                     className="px-3 py-4 items-center rounded-lg border-2 border-white text-white h-full cursor-pointer w-30 flex justify-center transition-all duration-300 hover:bg-white hover:text-blue-700 hover:scale-105"
@@ -72,7 +72,7 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <div className="flex xs:flex sm:flex md:hidden lg:hidden xl:hidden">
-                <button onClick={() => setIsOpen(!isOpen)}>
+                <button onClick={() => setIsOpen(!isOpen)} className="cursor-pointer">
                     <Image width={64} height={64} src='/Menu.png' alt="Menu" />
                 </button>
             </div>
@@ -83,7 +83,7 @@ const Navbar = () => {
                     {/* Close Button (X Mark) */}
                     <button
                         onClick={() => setIsOpen(false)}
-                        className="absolute top-6 right-6 text-white text-7xl transition-all duration-300 hover:scale-110"
+                        className="absolute top-6 right-6 text-white text-7xl transition-all duration-300 hover:scale-110 cursor-pointer"
                     >
                         &times;
                     </button>

@@ -9,7 +9,7 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "TuneShare| Where Music Unites",
-  description: "TuneShare is a Next.js-powered platform designed for music enthusiasts to share their favorite tunes, discover new tracks, and connect with a vibrant community.",
+  description: "TuneShare is a platform designed for music enthusiasts to share their favorite tunes, discover new tracks, and connect with a vibrant community.",
 };
 
 export default function RootLayout({
