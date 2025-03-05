@@ -15,7 +15,7 @@ const Register = async (req, res) => {
   try {
     const saltRounds = 10;
     const { firstName, email, password,lastName='',gender,age,country } = req.body;
-    let {preferences}=req.body
+    let {preferences}=req.body   
     if (!firstName || !email || !password || !gender || !age || !country || !preferences) {
       return res.status(400).json({ message: "All fields are required." });
     }

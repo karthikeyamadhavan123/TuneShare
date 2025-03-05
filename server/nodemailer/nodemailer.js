@@ -97,7 +97,7 @@ async function sendVerificationEmail(email, token) {
     <p>We received a request to reset your TuneShare password. If you didn't make this request, you can safely ignore this email.</p>
     <p>To reset your password and get back to sharing your favorite tunes, click the button below:</p>
     <div style="text-align: center; margin: 30px 0;">
-      <a href="${process.env.CLIENT_URL}/api/reset-password/${token}" style="background-color: #1e3c72; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1em;">
+      <a href="${process.env.CLIENT_URL}/api/auth/reset-password/${token}" style="background-color: #1e3c72; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 1.1em;">
         <i class="fas fa-key" style="margin-right: 10px;"></i>Reset Password
       </a>
     </div>

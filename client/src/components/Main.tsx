@@ -47,7 +47,7 @@ const Main = () => {
                 </div>
                 <div className='w-auto mt-5 flex flex-col flex-wrap sm:space-y-5 xs:space-y-5 md:space-y-10 lg:space-y-15 xl:space-y-15'>
                     <span className='text-start font-medium text-base md:text-lg lg:text-xl'>
-                        TuneShare is your stage to shine. Upload your best tracks, explore incredible talent, and connect with creators who share your passion. Whether you're here to collaborate, get discovered, or find the perfect voice for your project—your journey starts now. <span className='text-[#FFCC02] font-extrabold'>Let the music speak!</span>
+                        TuneShare is your stage to shine. Upload your best tracks, explore incredible talent, and connect with creators who share your passion. Whether you&apos;re here to collaborate, get discovered, or find the perfect voice for your project—your journey starts now. <span className='text-[#FFCC02] font-extrabold'>Let the music speak!</span>
                     </span>
 
                     <div className='w-auto'>
